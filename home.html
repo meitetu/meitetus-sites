@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>meitetu's portfolio</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :focus-visible { outline: 3px solid #3b82f6; outline-offset: 2px; }
+    body { word-break: break-word; }
+    
+    .counter-img {
+      image-rendering: pixelated;
+      height: 52px; /* 少しだけ高さを出して視認性アップ */
+      width: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans min-h-screen flex flex-col">
+
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="text-xl font-bold tracking-tight hover:opacity-70 transition-opacity">meitetu.net</a>
+      <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+        <svg id="theme-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-4xl mx-auto px-6 py-12 w-full">
+    <section class="mb-16">
+      <div class="grid gap-8 md:grid-cols-3 items-center">
+        <div class="md:col-span-2">
+          <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500">
+            meitetu's portfolio
+          </h1>
+          <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+            鯖缶中学生です。ガジェットとオンゲキ（珠洲島有栖推し！）を愛して生きています。
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border-2 border-blue-400 dark:border-blue-500 rounded-2xl p-6 shadow-xl shadow-blue-500/5 flex flex-col items-center justify-center min-w-full">
+          <span class="text-[10px] font-bold text-blue-500 uppercase tracking-[0.2em] mb-4">Total Visitors</span>
+          <div id="counter-container" class="flex items-center justify-center">
+            <div class="animate-pulse bg-slate-200 dark:bg-slate-800 w-40 h-12 rounded"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid gap-8 sm:grid-cols-2 mb-16">
+      <section class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <span class="w-2 h-8 bg-blue-500 rounded-full"></span> Profile
+        </h2>
+        <div class="space-y-4 text-slate-700 dark:text-slate-300">
+          <p>自宅サーバーを運用しているガジェット好き。にわか鯖缶です。</p>
+          <p>オンゲキの<strong class="text-blue-600 font-bold">星咲あかり</strong>、<strong class="text-cyan-500 font-bold">珠洲島有栖</strong>が最推しです。</p>
+          <p>VRchatたのしい</p>
+        </div>
+      </section>
+
+      <section class="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> Contents
+        </h2>
+        <nav class="grid gap-3">
+          <a href="gadget.html" class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl hover:bg-blue-500 hover:text-white transition-all group">
+            <span class="font-bold">デバイス紹介</span>
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </a>
+          <a href="https://status.meitetu.net" target="_blank" class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl hover:bg-cyan-500 hover:text-white transition-all">
+            <span class="font-bold">鯖ステータス</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </nav>
+      </section>
+    </div>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-8">お世話になっている方々</h2>
+      <div class="grid gap-4 sm:grid-cols-3">
+        <a href="https://spring-server.com/" target="_blank" class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-500 transition-colors shadow-sm">
+          <div class="font-bold text-blue-600 dark:text-blue-400 mb-2">はるさん</div>
+          <p class="text-sm text-slate-500 italic">めっちゃすごい人</p>
+        </a>
+        <a href="https://syokathu.cloudfree.jp/ssite/" target="_blank" class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-500 transition-colors shadow-sm">
+          <div class="font-bold text-blue-600 dark:text-blue-400 mb-2">syokathu</div>
+          <p class="text-sm text-slate-500 italic">大親友</p>
+        </a>
+        <a href="https://surfox.drmd.info" target="_blank" class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:border-blue-500 transition-colors shadow-sm">
+          <div class="font-bold text-blue-600 dark:text-blue-400 mb-2">さーふぉっくす</div>
+          <p class="text-sm text-slate-500 italic">便利なツールとか</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-12 text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 mt-12">
+    <p>&copy; 2024-2026 meitetu.net</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+
+    function updateTheme(isDark) {
+      if (isDark) {
+        html.classList.add('dark');
+        themeIcon.innerHTML = '<path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>';
+      } else {
+        html.classList.remove('dark');
+        themeIcon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>';
+      }
+    }
+
+    const initialDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    updateTheme(initialDark);
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateTheme(isDark);
+    });
+
+    function loadCounter() {
+      const img = new Image();
+      img.src = "https://counter.256server.com/meitetuservercounter?" + Date.now();
+      img.className = "counter-img transition-opacity duration-500 opacity-0"; // 反転を削除したわよ
+      img.onload = () => {
+        const container = document.getElementById('counter-container');
+        container.innerHTML = '';
+        container.appendChild(img);
+        setTimeout(() => img.classList.remove('opacity-0'), 10);
+      };
+    }
+    document.addEventListener('DOMContentLoaded', loadCounter);
+  </script>
+</body>
+</html>
