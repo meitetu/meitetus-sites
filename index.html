@@ -35,6 +35,13 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans min-h-screen flex flex-col">
 
+  <!-- ロード画面 -->
+  <div id="loading-screen" class="fixed inset-0 z-[100] bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-500">
+    <!-- 画像のURLをここに設定してください -->
+    <img src="https://placehold.co/128x128/3b82f6/ffffff?text=Loading" alt="Loading..." class="w-32 h-32 mb-6 rounded-2xl shadow-xl">
+    <p class="text-xl font-bold text-slate-600 dark:text-slate-400 animate-pulse tracking-widest">LOADING</p>
+  </div>
+
   <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#" class="text-xl font-bold tracking-tight hover:opacity-70 transition-opacity">meitetu.net</a>
@@ -141,6 +148,20 @@
       updateTheme(isDark);
     });
 
+    // ロード画面の制御
+    const loader = document.getElementById('loading-screen');
+    // リファラ（遷移元）が存在し、かつ自分のサイトのホスト名を含んでいるかチェック
+    if (document.referrer && document.referrer.includes(window.location.host)) {
+      loader.remove(); // 内部遷移ならロード画面を即削除
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          loader.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(() => loader.remove(), 500);
+        }, 800); // 読み込み完了後、少し待ってから消す
+      });
+    }
+
     function loadCounter() {
       const img = new Image();
       img.src = "https://counter.256server.com/meitetuservercounter?" + Date.now();
@@ -156,4 +177,3 @@
   </script>
 </body>
 </html>
-
