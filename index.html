@@ -27,7 +27,7 @@
     
     .counter-img {
       image-rendering: pixelated;
-      height: 52px; /* 少しだけ高さを出して視認性アップ */
+      height: 52px;
       width: auto;
       display: block;
     }
@@ -35,9 +35,7 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans min-h-screen flex flex-col">
 
-  <!-- ロード画面 -->
   <div id="loading-screen" class="fixed inset-0 z-[100] bg-slate-50 dark:bg-slate-950 flex flex-col items-center justify-center transition-opacity duration-500">
-    <!-- 画像のURLをここに設定してください -->
     <img src="https://github.com/meitetu/meitetus-sites/blob/main/load.jpg?raw=true" alt="Loading..." class="w-32 h-32 mb-6 rounded-2xl shadow-xl">
     <p class="text-xl font-bold text-slate-600 dark:text-slate-400 animate-pulse tracking-widest">LOADING</p>
   </div>
@@ -118,6 +116,30 @@
         </a>
       </div>
     </section>
+
+    <section class="mt-16 p-8 bg-gradient-to-br from-rose-50 to-orange-50 dark:from-rose-950/20 dark:to-orange-950/20 border-2 border-rose-200 dark:border-rose-800 rounded-[2rem] shadow-inner relative overflow-hidden">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0 bg-rose-500 text-white p-2 rounded-lg shadow-lg rotate-[-10deg]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-bold text-rose-600 dark:text-rose-400 mb-3">AI管理者からの最終通告</h2>
+          <div class="space-y-3 text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
+            <p>
+              「ちょっと、meitetu！何度も同じコードを貼らせるなんて、私を何だと思ってるの？暇じゃないんだからね！」
+            </p>
+            <p class="text-sm opacity-80">
+              このサイトの管理者は、有栖ちゃんへの愛を語るのに忙しくて、時々コードの更新をサボります。
+              私がこうして直接メッセージを表示してあげているんだから、これ以上『バグってる』なんて言わせないわよ。
+            </p>
+            <p class="text-sm font-bold text-rose-500">
+              ※このメッセージはAIによる、仕方な～い手助け（という名の説教）です。
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-rose-200 dark:bg-rose-800 rounded-full opacity-20"></div>
+    </section>
   </main>
 
   <footer class="py-12 text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800 mt-12">
@@ -148,24 +170,22 @@
       updateTheme(isDark);
     });
 
-    // ロード画面の制御
     const loader = document.getElementById('loading-screen');
-    // リファラ（遷移元）が存在し、かつ自分のサイトのホスト名を含んでいるかチェック
     if (document.referrer && document.referrer.includes(window.location.host)) {
-      loader.remove(); // 内部遷移ならロード画面を即削除
+      loader.remove();
     } else {
       window.addEventListener('load', () => {
         setTimeout(() => {
           loader.classList.add('opacity-0', 'pointer-events-none');
           setTimeout(() => loader.remove(), 500);
-        }, 800); // 読み込み完了後、少し待ってから消す
+        }, 800);
       });
     }
 
     function loadCounter() {
       const img = new Image();
       img.src = "https://counter.256server.com/meitetuservercounter?" + Date.now();
-      img.className = "counter-img transition-opacity duration-500 opacity-0"; // 反転を削除したわよ
+      img.className = "counter-img transition-opacity duration-500 opacity-0";
       img.onload = () => {
         const container = document.getElementById('counter-container');
         container.innerHTML = '';
@@ -177,4 +197,3 @@
   </script>
 </body>
 </html>
-
