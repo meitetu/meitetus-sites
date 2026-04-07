@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 Not Found - meitetu's site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* 404ページ専用のちょい足しスタイル */
+    .not-found-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .not-found-code {
+      font-size: 8rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.05em;
+    }
+    .not-found-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .not-found-desc {
+      color: var(--text-sub);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー (タブなしのシンプル版) -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="index.html">meitetu</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="テーマ切り替え" onclick="toggleTheme()" style="margin-left: auto;">
+        <span class="theme-toggle-track">
+          <span class="theme-toggle-thumb"></span>
+        </span>
+        <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="not-found-container">
+      <div class="not-found-code">404</div>
+      <h1 class="not-found-title">Page Not Found</h1>
+      <p class="not-found-desc" id="errorMsg">
+        <!-- JSでランダムな煽り文句が入ります -->
+      </p>
+      <a href="index.html" class="btn btn-primary">ホームに戻る</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 meitetu. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // メスガキ煽り構文ガチャ
+    const msgs = [
+      "お探しのページは見つかりませんでした。<br>……ていうか、このサイトでURL間違える要素あります？ざぁ〜こ♡",
+      "指定されたURLは存在しないようです。<br>……ふふっ、こんなシンプルなサイトで迷子になるとか、よわよわですね♡",
+      "404 Not Found。こちらのページは存在いたしません。<br>……URLもまともに打てないなんて、なんだか可愛いですね♡",
+      "該当のページは削除されたか、移動しました。<br>……まったく、どこ見たらそんな適当なURL思いつくんですか？情弱ざぁ〜こ♡",
+      "お探しのページは見つかりませんでした。お手数ですがホームへお戻りください。<br>……ほら、早く下のボタン押して戻りなよ♡"
+    ];
+    document.getElementById('errorMsg').innerHTML = msgs[Math.floor(Math.random() * msgs.length)];
+  </script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>meitetu's site</title>
+  <meta name="description" content="meitetuの個人サイト。プロフィール、ガジェット、リンクなど。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ヘッダー + タブバー -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="site-logo" href="#" onclick="switchTab('home'); return false;">meitetu</a>
+      <nav class="tab-bar" role="tablist">
+        <button class="tab-btn active" id="tab-home" role="tab" onclick="switchTab('home')">ホーム</button>
+        <button class="tab-btn" id="tab-profile" role="tab" onclick="switchTab('profile')">プロフィール</button>
+        <button class="tab-btn" id="tab-gadget" role="tab" onclick="switchTab('gadget')">ガジェット</button>
+        <button class="tab-btn" id="tab-links" role="tab" onclick="switchTab('links')">リンク集</button>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く" onclick="toggleMenu()">☰</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="テーマ切り替え" onclick="toggleTheme()">
+        <span class="theme-toggle-track">
+          <span class="theme-toggle-thumb"></span>
+        </span>
+        <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- モバイルメニュー -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button onclick="switchTab('home');    toggleMenu()">ホーム</button>
+    <button onclick="switchTab('profile'); toggleMenu()">プロフィール</button>
+    <button onclick="switchTab('gadget');  toggleMenu()">ガジェット</button>
+    <button onclick="switchTab('links');   toggleMenu()">リンク集</button>
+  </div>
+
+  <main class="main-content">
+
+    <!-- ===== ホーム ===== -->
+    <section class="tab-panel active" id="panel-home" role="tabpanel">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="hero-sub">こんにちは、</p>
+          <h1 class="hero-title">meitetu です。</h1>
+          <p class="hero-desc">
+            テクノロジー＆音ゲー＆鉄道好きのどこかの人間。<br />
+            いろいろ作ったり壊したりしながら生きてます。
+          </p>
+          <div class="hero-btns">
+            <button class="btn btn-primary" onclick="switchTab('profile')">プロフィール</button>
+            <button class="btn btn-secondary" onclick="switchTab('gadget')">ガジェット</button>
+            <button class="btn btn-secondary" onclick="switchTab('links')">リンク集</button>
+          </div>
+        </div>
+
+        <!-- ヒーロー部分のアクセスカウンター -->
+        <div class="hero-counter" style="display: flex; align-items: center; justify-content: flex-end;">
+          <img src="http://counter.linkserver.jp/@meitetu-host" alt="moebooru counter"
+            style="max-width: 100%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
+        </div>
+      </div>
+
+      <div class="home-cards">
+        <div class="card" onclick="switchTab('profile')">
+          <span class="card-icon">👤</span>
+          <h3>プロフィール</h3>
+          <p>自己紹介・SNS</p>
+        </div>
+        <div class="card" onclick="switchTab('gadget')">
+          <span class="card-icon">🖥️</span>
+          <h3>ガジェット</h3>
+          <p>使ってるデバイスまとめ</p>
+        </div>
+        <div class="card" onclick="switchTab('links')">
+          <span class="card-icon">🔗</span>
+          <h3>リンク集</h3>
+          <p>よく使うリンク・外部サービス</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== プロフィール ===== -->
+    <section class="tab-panel" id="panel-profile" role="tabpanel">
+      <div class="page-header">
+        <h2>プロフィール</h2>
+        <p>自己紹介</p>
+      </div>
+
+      <div class="profile-layout">
+        <div class="profile-card">
+          <div class="avatar">me</div>
+          <h3>meitetu</h3>
+          <p class="profile-tagline">テクノロジー / 音ゲー / 鉄道</p>
+        </div>
+
+        <div class="profile-details">
+
+          <!-- 自己紹介 ここを編集 -->
+          <div class="info-block">
+            <h4>自己紹介</h4>
+            <p class="bio-text">
+              パソコンやスマホなどをよくかき集めて金欠になる中学生です。
+              オンゲキを死ぬほど愛してます。星咲あかり、珠洲島有栖推しです。
+            </p>
+          </div>
+
+          <!-- SNS ここを編集（href="" の中にURLを入れる） -->
+          <div class="info-block">
+            <h4>SNS</h4>
+            <div class="link-list">
+              <a href="https://x.com/meitetu9500JPN" class="ext-link" target="_blank" rel="noopener">🐦 Twitter / X</a>
+              <a href="https://github.com/meitetu" class="ext-link" target="_blank" rel="noopener">🐙 GitHub</a>
+              <a href="https://discordapp.com/users/953260711390371940" class="ext-link" target="_blank"
+                rel="noopener">📺 Discord</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ガジェット ===== -->
+    <section class="tab-panel" id="panel-gadget" role="tabpanel">
+      <div class="page-header">
+        <h2>ガジェット</h2>
+        <p>使ってる機材・デバイスまとめ</p>
+      </div>
+
+      <div class="gadget-section">
+        <h3 class="gadget-category">📱 スマートフォン</h3>
+        <div class="works-grid">
+          <div class="work-card">
+            <div class="work-icon">📱</div>
+            <!-- スマホ1の名前を変える -->
+            <h3>Nothing Phone (1)</h3>
+            <p>メイン使用機。日常使いはこれ一本。</p>
+            <div class="work-tags"><span>Android</span></div>
+          </div>
+          <div class="work-card">
+            <div class="work-icon">📱</div>
+            <!-- スマホ2の名前を変える -->
+            <h3>Xperia XZ1</h3>
+            <p>サブ機。テストやガジェット用途に使用。</p>
+            <div class="work-tags"><span>Android</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gadget-section">
+        <h3 class="gadget-category">📝 タブレット</h3>
+        <div class="works-grid">
+          <div class="work-card">
+            <div class="work-icon">📝</div>
+            <!-- タブレット1の名前を変える -->
+            <h3>Lenovo Tab Plus</h3>
+            <p>メインタブレット、ゲームや動画視聴で使用</p>
+            <div class="work-tags"><span>Android</span></div>
+          </div>
+          <div class="work-card">
+            <div class="work-icon">📝</div>
+            <!-- タブレット2の名前を変える -->
+            <h3>スマイルタブレット4</h3>
+            <p>置き時計として使用</p>
+            <div class="work-tags"><span>Android</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gadget-section">
+        <h3 class="gadget-category">⌚ スマートウォッチ</h3>
+        <div class="works-grid">
+          <div class="work-card">
+            <div class="work-icon">⌚</div>
+            <!-- スマートウォッチの名前を変える -->
+            <h3>Pixel Watch 1</h3>
+            <p>健康管理・通知確認、決済用途に使用。</p>
+            <div class="work-tags"><span>Wearable</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gadget-section">
+        <h3 class="gadget-category">💻 パソコン</h3>
+        <div class="works-grid pc-grid">
+
+          <!-- ===== PC 1 ===== -->
+          <div class="work-card">
+            <div class="work-icon">🖥️</div>
+            <h3>ROG STRIX Z370-F GAMING</h3>
+            <p>メインPC</p>
+            <table class="spec-table">
+              <tr>
+                <th>CPU</th>
+                <td>Intel Core i5-9400</td>
+              </tr>
+              <tr>
+                <th>GPU</th>
+                <td>AMD Radeon RX7600</td>
+              </tr>
+              <tr>
+                <th>RAM</th>
+                <td>32 GB DDR4</td>
+              </tr>
+              <tr>
+                <th>SSD</th>
+                <td>500 GB SATA</td>
+              </tr>
+              <tr>
+                <th>OS</th>
+                <td>Windows 11</td>
+              </tr>
+            </table>
+            <div class="work-tags"><span>Windows</span><span>自作</span></div>
+          </div>
+
+          <!-- ===== PC 2 ===== ここのスペックを変えてね -->
+          <div class="work-card">
+            <div class="work-icon">💻</div>
+            <h3>ThinkPad L13 Gen1</h3>
+            <p>メインノートPC</p>
+            <table class="spec-table">
+              <tr>
+                <th>CPU</th>
+                <td>intel Core i5-10210U</td>
+              </tr>
+              <tr>
+                <th>GPU</th>
+                <td>intel UHD Graphics</td>
+              </tr>
+              <tr>
+                <th>RAM</th>
+                <td>8 GB DDR4</td>
+              </tr>
+              <tr>
+                <th>SSD</th>
+                <td>512 GB NVMe</td>
+              </tr>
+              <tr>
+                <th>OS</th>
+                <td>Arch Linux</td>
+              </tr>
+            </table>
+            <div class="work-tags"><span>Linux</span></div>
+          </div>
+
+          <!-- ===== PC 3 ===== ここのスペックを変えてね -->
+          <div class="work-card">
+            <div class="work-icon">🖥️</div>
+            <h3>ASRock H87 Pro4</h3>
+            <p>サーバー</p>
+            <table class="spec-table">
+              <tr>
+                <th>CPU</th>
+                <td>intel Xeon E3-1280 v3</td>
+              </tr>
+              <tr>
+                <th>GPU</th>
+                <td>GT710</td>
+              </tr>
+              <tr>
+                <th>RAM</th>
+                <td>32 GB DDR3</td>
+              </tr>
+              <tr>
+                <th>SSD</th>
+                <td>240GB SSD</td>
+              </tr>
+              <tr>
+                <th>HDD</th>
+                <td>500GB HDD×2 1TB HDD</td>
+              </tr>
+              <tr>
+                <th>OS</th>
+                <td>Windows 11</td>
+              </tr>
+            </table>
+            <div class="work-tags"><span>Windows</span><span>自作</span><span>サーバー</span></div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="gadget-section">
+        <h3 class="gadget-category">🎧 イヤホン</h3>
+        <div class="works-grid">
+          <div class="work-card">
+            <div class="work-icon">🎧</div>
+            <!-- イヤホン1の名前を変える -->
+            <h3>SoundCore Liberty 4 Pro</h3>
+            <p>普段使い。ノイズキャンセリング対応。</p>
+            <div class="work-tags"><span>TWS</span><span>ANC</span></div>
+          </div>
+          <div class="work-card">
+            <div class="work-icon">🎧</div>
+            <!-- イヤホン2の名前を変える -->
+            <h3>AUGLAMOUR F300</h3>
+            <p>有線。音ゲー用途で使用</p>
+            <div class="work-tags"><span>有線</span><span>Hi-Fi</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ===== リンク集 ===== -->
+    <!-- href="" の中にURLを入れる -->
+    <section class="tab-panel" id="panel-links" role="tabpanel">
+      <div class="page-header">
+        <h2>リンク集</h2>
+        <p>お世話になってる人・おすすめサイトなど</p>
+      </div>
+
+      <!-- ===== リンクを追加するときはこのブロックをコピーして増やしてね ===== -->
+      <div class="blogroll">
+
+        <!-- リンク例1 -->
+        <a href="https://spring-server.com/" class="blogroll-card" target="_blank" rel="noopener">
+          <div class="blogroll-main">
+            <span class="blogroll-name">はるさん</span>
+            <span class="blogroll-url">https://spring-server.com/</span>
+          </div>
+          <p class="blogroll-desc">なんかすごい人</p>
+        </a>
+
+        <!-- リンク例2 -->
+        <a href="https://きつね.jp/" class="blogroll-card" target="_blank" rel="noopener">
+          <div class="blogroll-main">
+            <span class="blogroll-name">さーふぉっくす</span>
+            <span class="blogroll-url">https://きつね.jp/</span>
+          </div>
+          <p class="blogroll-desc">便利なツールとか</p>
+        </a>
+
+        <!-- リンク例3 -->
+        <a href="https://syokathu.cloudfree.jp/ssite/" class="blogroll-card" target="_blank" rel="noopener">
+          <div class="blogroll-main">
+            <span class="blogroll-name">Syokathu</span>
+            <span class="blogroll-url">https://syokathu.cloudfree.jp/ssite/</span>
+          </div>
+          <p class="blogroll-desc">親友</p>
+        </a>
+
+        <!-- リンク例3 -->
+        <a href="http://ramuneserver.net/" class="blogroll-card" target="_blank" rel="noopener">
+          <div class="blogroll-main">
+            <span class="blogroll-name">ramune</span>
+            <span class="blogroll-url">http://ramuneserver.net/</span>
+          </div>
+          <p class="blogroll-desc">こいつのサイト今の時代にhttpなんだけど</p>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 外部リンク注意モーダル -->
+  <div class="modal-overlay" id="extLinkModal" onclick="if(event.target===this)closeExtModal()">
+    <div class="modal-content">
+      <h3>外部サイトへの移動</h3>
+      <p>ここから先は外部サイト（<span id="extLinkUrl" class="highlight-url"></span>）へ移動します。<br />よろしいですか？</p>
+      <div class="modal-btns">
+        <button class="btn btn-secondary" onclick="closeExtModal()">キャンセル</button>
+        <a href="#" id="extLinkConfirmBtn" class="btn btn-primary" target="_blank" rel="noopener"
+          onclick="closeExtModal()">アクセスする</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>© 2026 meitetu. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
