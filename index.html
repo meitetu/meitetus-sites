@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
@@ -11,375 +11,455 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#005ac1',
+              container: '#d8e2ff',
+              onContainer: '#001a41',
+              dark: '#adc6ff',
+              darkContainer: '#004494',
+              onDarkContainer: '#d8e2ff',
+            },
+            secondary: {
+              DEFAULT: '#575e71',
+              container: '#dbe2f9',
+              onContainer: '#141b2c',
+              dark: '#bfc6dc',
+              darkContainer: '#3f4759',
+              onDarkContainer: '#dbe2f9',
+            },
+            tertiary: {
+              DEFAULT: '#715573',
+              container: '#fbd7fc',
+              onContainer: '#29132d',
+              dark: '#debcdf',
+              darkContainer: '#583e5a',
+              onDarkContainer: '#fbd7fc',
+            },
+            surface: {
+              DEFAULT: '#fdfbff',
+              onSurface: '#1a1c1e',
+              variant: '#e0e2ec',
+              onVariant: '#43474e',
+              dark: '#1a1c1e',
+              onDarkSurface: '#e2e2e6',
+              darkVariant: '#43474e',
+              onDarkVariant: '#c4c6d0',
+            },
+            outline: {
+              DEFAULT: '#74777f',
+              dark: '#8e9099',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+          },
+          borderRadius: {
+            'm3-xs': '4px',
+            'm3-sm': '8px',
+            'm3-md': '12px',
+            'm3-lg': '16px',
+            'm3-xl': '28px',
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .m3-card {
+        @apply bg-white dark:bg-[#2a2c2e] border border-outline/20 dark:border-outline-dark/20 rounded-m3-lg p-6 transition-all duration-200 hover:shadow-md;
+      }
+      .m3-btn-filled {
+        @apply bg-primary text-white px-6 py-2.5 rounded-full font-medium transition-all hover:shadow-lg active:scale-95 disabled:opacity-50;
+      }
+      .m3-btn-tonal {
+        @apply bg-primary-container text-primary-onContainer px-6 py-2.5 rounded-full font-medium transition-all hover:shadow-md active:scale-95;
+      }
+      .m3-btn-outlined {
+        @apply border border-outline text-primary px-6 py-2.5 rounded-full font-medium transition-all hover:bg-primary/5 active:scale-95;
+      }
+      .m3-tab {
+        @apply px-4 py-2 rounded-full text-sm font-medium transition-all hover:bg-surface-variant/50;
+      }
+      .m3-tab.active {
+        @apply bg-primary-container text-primary-onContainer;
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body class="min-h-screen flex flex-col bg-surface dark:bg-surface-dark text-surface-onVariant dark:text-surface-onDarkSurface transition-colors duration-300 font-sans">
 
-  <!-- ヘッダー + タブバー -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="site-logo" href="#" onclick="switchTab('home'); return false;">meitetu</a>
-      <nav class="tab-bar" role="tablist">
-        <button class="tab-btn active" id="tab-home" role="tab" onclick="switchTab('home')">ホーム</button>
-        <button class="tab-btn" id="tab-profile" role="tab" onclick="switchTab('profile')">プロフィール</button>
-        <button class="tab-btn" id="tab-gadget" role="tab" onclick="switchTab('gadget')">ガジェット</button>
-        <button class="tab-btn" id="tab-links" role="tab" onclick="switchTab('links')">リンク集</button>
-      </nav>
-      <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く" onclick="toggleMenu()">☰</button>
-      <button class="theme-toggle" id="themeToggle" aria-label="テーマ切り替え" onclick="toggleTheme()">
-        <span class="theme-toggle-track">
-          <span class="theme-toggle-thumb"></span>
-        </span>
-        <span class="theme-toggle-icon" id="themeIcon">🌙</span>
-      </button>
+  <!-- ヘッダー -->
+  <header class="sticky top-0 z-50 bg-surface/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-outline/10">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <a class="text-xl font-bold tracking-tight text-primary dark:text-primary-dark" href="#" onclick="switchTab('home'); return false;">meitetu</a>
+        
+        <nav class="hidden md:flex items-center gap-1" role="tablist">
+          <button class="m3-tab active" id="tab-home" onclick="switchTab('home')">ホーム</button>
+          <button class="m3-tab" id="tab-profile" onclick="switchTab('profile')">プロフィール</button>
+          <button class="m3-tab" id="tab-gadget" onclick="switchTab('gadget')">ガジェット</button>
+          <button class="m3-tab" id="tab-links" onclick="switchTab('links')">リンク集</button>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="themeToggle" onclick="toggleTheme()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors" aria-label="テーマ切り替え">
+          <span id="themeIcon" class="text-xl text-surface-onVariant dark:text-surface-onDarkSurface">🌙</span>
+        </button>
+        
+        <button class="md:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors" onclick="toggleMenu()">
+          <span class="text-2xl text-surface-onVariant dark:text-surface-onDarkSurface">☰</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <!-- モバイルメニュー -->
-  <div class="mobile-menu" id="mobileMenu">
-    <button onclick="switchTab('home');    toggleMenu()">ホーム</button>
-    <button onclick="switchTab('profile'); toggleMenu()">プロフィール</button>
-    <button onclick="switchTab('gadget');  toggleMenu()">ガジェット</button>
-    <button onclick="switchTab('links');   toggleMenu()">リンク集</button>
+  <div id="mobileMenu" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="toggleMenu()"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-64 bg-surface dark:bg-surface-dark p-4 shadow-xl flex flex-col gap-2">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-lg font-bold ml-2 dark:text-surface-onDarkSurface">メニュー</span>
+        <button class="w-10 h-10 rounded-full hover:bg-surface-variant dark:text-surface-onDarkSurface" onclick="toggleMenu()">✕</button>
+      </div>
+      <button class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant text-left dark:text-surface-onDarkSurface" onclick="switchTab('home'); toggleMenu()">
+        <span>🏠</span> ホーム
+      </button>
+      <button class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant text-left dark:text-surface-onDarkSurface" onclick="switchTab('profile'); toggleMenu()">
+        <span>👤</span> プロフィール
+      </button>
+      <button class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant text-left dark:text-surface-onDarkSurface" onclick="switchTab('gadget'); toggleMenu()">
+        <span>🖥️</span> ガジェット
+      </button>
+      <button class="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-surface-variant text-left dark:text-surface-onDarkSurface" onclick="switchTab('links'); toggleMenu()">
+        <span>🔗</span> リンク集
+      </button>
+    </div>
   </div>
 
-  <main class="main-content">
+  <main class="flex-grow max-w-5xl mx-auto px-4 py-8 w-full">
 
     <!-- ===== ホーム ===== -->
-    <section class="tab-panel active" id="panel-home" role="tabpanel">
-      <div class="hero">
-        <div class="hero-text">
-          <p class="hero-sub">こんにちは、</p>
-          <h1 class="hero-title">meitetu です。</h1>
-          <p class="hero-desc">
+    <section class="tab-panel active space-y-12" id="panel-home">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 py-12">
+        <div class="flex-1 space-y-6 text-center md:text-left">
+          <div>
+            <p class="text-primary dark:text-primary-dark font-medium mb-2">こんにちは、</p>
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">meitetu です。</h1>
+          </div>
+          <p class="text-lg text-surface-onVariant/80 dark:text-surface-onDarkSurface/80 leading-relaxed max-w-xl">
             テクノロジー＆音ゲー＆鉄道好きのどこかの人間。<br />
             いろいろ作ったり壊したりしながら生きてます。
           </p>
-          <div class="hero-btns">
-            <button class="btn btn-primary" onclick="switchTab('profile')">プロフィール</button>
-            <button class="btn btn-secondary" onclick="switchTab('gadget')">ガジェット</button>
-            <button class="btn btn-secondary" onclick="switchTab('links')">リンク集</button>
+          <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+            <button class="m3-btn-filled" onclick="switchTab('profile')">プロフィール</button>
+            <button class="m3-btn-tonal" onclick="switchTab('gadget')">ガジェット</button>
+            <button class="m3-btn-tonal" onclick="switchTab('links')">リンク集</button>
           </div>
         </div>
 
-        <!-- ヒーロー部分のアクセスカウンター -->
-        <div class="hero-counter" style="display: flex; align-items: center; justify-content: flex-end;">
-          <img src="http://counter.linkserver.jp/@meitetu-host" alt="moebooru counter"
-            style="max-width: 100%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));" />
+        <div class="flex-shrink-0">
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-primary to-tertiary rounded-m3-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div class="relative bg-white dark:bg-[#2a2c2e] p-4 rounded-m3-xl shadow-sm">
+              <img src="http://counter.linkserver.jp/@meitetu-host" alt="counter" class="max-w-full" />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="home-cards">
-        <div class="card" onclick="switchTab('profile')">
-          <span class="card-icon">👤</span>
-          <h3>プロフィール</h3>
-          <p>自己紹介・SNS</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="m3-card cursor-pointer group" onclick="switchTab('profile')">
+          <div class="w-12 h-12 bg-primary/10 dark:bg-primary-dark/20 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">👤</div>
+          <h3 class="text-xl font-bold dark:text-surface-onDarkSurface">プロフィール</h3>
+          <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">自己紹介・SNS</p>
         </div>
-        <div class="card" onclick="switchTab('gadget')">
-          <span class="card-icon">🖥️</span>
-          <h3>ガジェット</h3>
-          <p>使ってるデバイスまとめ</p>
+        <div class="m3-card cursor-pointer group" onclick="switchTab('gadget')">
+          <div class="w-12 h-12 bg-secondary/10 dark:bg-secondary-dark/20 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🖥️</div>
+          <h3 class="text-xl font-bold dark:text-surface-onDarkSurface">ガジェット</h3>
+          <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">使ってるデバイスまとめ</p>
         </div>
-        <div class="card" onclick="switchTab('links')">
-          <span class="card-icon">🔗</span>
-          <h3>リンク集</h3>
-          <p>よく使うリンク・外部サービス</p>
+        <div class="m3-card cursor-pointer group" onclick="switchTab('links')">
+          <div class="w-12 h-12 bg-tertiary/10 dark:bg-tertiary-dark/20 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🔗</div>
+          <h3 class="text-xl font-bold dark:text-surface-onDarkSurface">リンク集</h3>
+          <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">よく使うリンク・外部サービス</p>
         </div>
       </div>
     </section>
 
     <!-- ===== プロフィール ===== -->
-    <section class="tab-panel" id="panel-profile" role="tabpanel">
-      <div class="page-header">
-        <h2>プロフィール</h2>
-        <p>自己紹介</p>
+    <section class="tab-panel hidden space-y-8" id="panel-profile">
+      <div class="border-b border-outline/10 pb-4">
+        <h2 class="text-3xl font-bold dark:text-surface-onDarkSurface">プロフィール</h2>
+        <p class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">自己紹介</p>
       </div>
 
-      <div class="profile-layout">
-        <div class="profile-card">
-          <div class="avatar">me</div>
-          <h3>meitetu</h3>
-          <p class="profile-tagline">テクノロジー / 音ゲー / 鉄道</p>
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="md:w-64 flex-shrink-0">
+          <div class="m3-card text-center space-y-4">
+            <div class="w-24 h-24 bg-primary text-white text-3xl font-bold rounded-full flex items-center justify-center mx-auto shadow-lg">me</div>
+            <div>
+              <h3 class="text-xl font-bold dark:text-surface-onDarkSurface">meitetu</h3>
+              <p class="text-sm text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">テクノロジー / 音ゲー / 鉄道</p>
+            </div>
+          </div>
         </div>
 
-        <div class="profile-details">
-
-          <!-- 自己紹介 ここを編集 -->
-          <div class="info-block">
-            <h4>自己紹介</h4>
-            <p class="bio-text">
-              パソコンやスマホなどをよくかき集めて金欠になる中学生です。
+        <div class="flex-grow space-y-6">
+          <div class="m3-card">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-dark mb-4">自己紹介</h4>
+            <p class="text-lg leading-relaxed dark:text-surface-onDarkSurface">
+              パソコンやスマホなどをよくかき集めて金欠になる中学生です。<br>
               オンゲキを死ぬほど愛してます。星咲あかり、珠洲島有栖推しです。
             </p>
           </div>
 
-          <!-- SNS ここを編集（href="" の中にURLを入れる） -->
-          <div class="info-block">
-            <h4>SNS</h4>
-            <div class="link-list">
-              <a href="https://x.com/meitetu9500JPN" class="ext-link" target="_blank" rel="noopener">🐦 Twitter / X</a>
-              <a href="https://github.com/meitetu" class="ext-link" target="_blank" rel="noopener">🐙 GitHub</a>
-              <a href="https://discordapp.com/users/953260711390371940" class="ext-link" target="_blank"
-                rel="noopener">📺 Discord</a>
+          <div class="m3-card">
+            <h4 class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-dark mb-4">SNS</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a href="https://x.com/meitetu9500JPN" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-surface-variant/30 dark:bg-surface-variant/10 hover:bg-surface-variant transition-colors group">
+                <span class="text-xl">🐦</span>
+                <span class="font-medium group-hover:text-primary dark:group-hover:text-primary-dark dark:text-surface-onDarkSurface transition-colors">Twitter / X</span>
+              </a>
+              <a href="https://github.com/meitetu" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-surface-variant/30 dark:bg-surface-variant/10 hover:bg-surface-variant transition-colors group">
+                <span class="text-xl">🐙</span>
+                <span class="font-medium group-hover:text-primary dark:group-hover:text-primary-dark dark:text-surface-onDarkSurface transition-colors">GitHub</span>
+              </a>
+              <a href="https://discordapp.com/users/953260711390371940" target="_blank" class="flex items-center gap-3 p-3 rounded-xl bg-surface-variant/30 dark:bg-surface-variant/10 hover:bg-surface-variant transition-colors group">
+                <span class="text-xl">📺</span>
+                <span class="font-medium group-hover:text-primary dark:group-hover:text-primary-dark dark:text-surface-onDarkSurface transition-colors">Discord</span>
+              </a>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
     <!-- ===== ガジェット ===== -->
-    <section class="tab-panel" id="panel-gadget" role="tabpanel">
-      <div class="page-header">
-        <h2>ガジェット</h2>
-        <p>使ってる機材・デバイスまとめ</p>
+    <section class="tab-panel hidden space-y-12" id="panel-gadget">
+      <div class="border-b border-outline/10 pb-4">
+        <h2 class="text-3xl font-bold dark:text-surface-onDarkSurface">ガジェット</h2>
+        <p class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">使ってる機材・デバイスまとめ</p>
       </div>
 
-      <div class="gadget-section">
-        <h3 class="gadget-category">📱 スマートフォン</h3>
-        <div class="works-grid">
-          <div class="work-card">
-            <div class="work-icon">📱</div>
-            <!-- スマホ1の名前を変える -->
-            <h3>Nothing Phone (1)</h3>
-            <p>メイン使用機。日常使いはこれ一本。</p>
-            <div class="work-tags"><span>Android</span></div>
+      <div class="space-y-16">
+        <!-- スマホ -->
+        <div class="space-y-6">
+          <h3 class="text-sm font-bold uppercase tracking-widest text-primary dark:text-primary-dark flex items-center gap-2">
+            <span class="text-xl">📱</span> スマートフォン
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="m3-card group">
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary/10 transition-colors">📱</div>
+                <span class="px-3 py-1 bg-primary/10 text-primary dark:text-primary-dark text-xs font-bold rounded-full uppercase">Android</span>
+              </div>
+              <h3 class="text-xl font-bold mb-2 dark:text-surface-onDarkSurface">Galaxy S22</h3>
+              <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">メイン使用機。日常使いはこれ一本。</p>
+            </div>
+            <div class="m3-card group">
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary/10 transition-colors">📱</div>
+                <span class="px-3 py-1 bg-primary/10 text-primary dark:text-primary-dark text-xs font-bold rounded-full uppercase">Android</span>
+              </div>
+              <h3 class="text-xl font-bold mb-2 dark:text-surface-onDarkSurface">AQUOS Wish4</h3>
+              <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">サブ機。テストやガジェット用途に使用。</p>
+            </div>
           </div>
-          <div class="work-card">
-            <div class="work-icon">📱</div>
-            <!-- スマホ2の名前を変える -->
-            <h3>Xperia XZ1</h3>
-            <p>サブ機。テストやガジェット用途に使用。</p>
-            <div class="work-tags"><span>Android</span></div>
+        </div>
+
+        <!-- タブレット -->
+        <div class="space-y-6">
+          <h3 class="text-sm font-bold uppercase tracking-widest text-primary dark:text-primary-dark flex items-center gap-2">
+            <span class="text-xl">📝</span> タブレット
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="m3-card group">
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary/10 transition-colors">📝</div>
+                <span class="px-3 py-1 bg-primary/10 text-primary dark:text-primary-dark text-xs font-bold rounded-full uppercase">Android</span>
+              </div>
+              <h3 class="text-xl font-bold mb-2 dark:text-surface-onDarkSurface">Lenovo Tab Plus</h3>
+              <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">メインタブレット、ゲームや動画視聴で使用</p>
+            </div>
+            <div class="m3-card group">
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary/10 transition-colors">📝</div>
+                <span class="px-3 py-1 bg-primary/10 text-primary dark:text-primary-dark text-xs font-bold rounded-full uppercase">Android</span>
+              </div>
+              <h3 class="text-xl font-bold mb-2 dark:text-surface-onDarkSurface">スマイルタブレット4</h3>
+              <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">置き時計として使用</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- パソコン -->
+        <div class="space-y-6">
+          <h3 class="text-sm font-bold uppercase tracking-widest text-primary dark:text-primary-dark flex items-center gap-2">
+            <span class="text-xl">💻</span> パソコン
+          </h3>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="m3-card group lg:col-span-1">
+              <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-primary/10 transition-colors">🖥️</div>
+              <h3 class="text-xl font-bold mb-1 dark:text-surface-onDarkSurface">ROG STRIX Z370-F</h3>
+              <p class="text-sm text-primary dark:text-primary-dark font-medium mb-4">メインPC (自作)</p>
+              <div class="space-y-2 border-t border-outline/10 pt-4">
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">CPU</span><span>i5-9400</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">GPU</span><span>RX7600</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">RAM</span><span>32GB</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">OS</span><span>Windows 11</span></div>
+              </div>
+            </div>
+            <div class="m3-card group lg:col-span-1">
+              <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-primary/10 transition-colors">💻</div>
+              <h3 class="text-xl font-bold mb-1 dark:text-surface-onDarkSurface">ThinkPad L13 Gen1</h3>
+              <p class="text-sm text-primary dark:text-primary-dark font-medium mb-4">メインノートPC</p>
+              <div class="space-y-2 border-t border-outline/10 pt-4">
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">CPU</span><span>i5-10210U</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">RAM</span><span>8GB</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">SSD</span><span>512GB NVMe</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">OS</span><span>Arch Linux</span></div>
+              </div>
+            </div>
+            <div class="m3-card group lg:col-span-1">
+              <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl mb-4 group-hover:bg-primary/10 transition-colors">🖥️</div>
+              <h3 class="text-xl font-bold mb-1 dark:text-surface-onDarkSurface">ASRock H87 Pro4</h3>
+              <p class="text-sm text-primary dark:text-primary-dark font-medium mb-4">サーバー (自作)</p>
+              <div class="space-y-2 border-t border-outline/10 pt-4">
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">CPU</span><span>Xeon E3-1280 v3</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">RAM</span><span>32GB</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">HDD</span><span>2.5TB Total</span></div>
+                <div class="flex justify-between text-sm dark:text-surface-onDarkSurface"><span class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">OS</span><span>Windows 11</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- イヤホン -->
+        <div class="space-y-6">
+          <h3 class="text-sm font-bold uppercase tracking-widest text-primary dark:text-primary-dark flex items-center gap-2">
+            <span class="text-xl">🎧</span> イヤホン
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="m3-card group">
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary/10 transition-colors">🎧</div>
+                <div class="flex gap-2">
+                   <span class="px-3 py-1 bg-tertiary/10 text-tertiary dark:text-tertiary-dark text-xs font-bold rounded-full uppercase">TWS</span>
+                   <span class="px-3 py-1 bg-tertiary/10 text-tertiary dark:text-tertiary-dark text-xs font-bold rounded-full uppercase">ANC</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold mb-2 dark:text-surface-onDarkSurface">SONY WF-1000XM4</h3>
+              <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">普段使い。ノイズキャンセリング対応。</p>
+            </div>
+            <div class="m3-card group">
+              <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 bg-surface-variant dark:bg-surface-variant/20 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-primary/10 transition-colors">🎧</div>
+                <div class="flex gap-2">
+                   <span class="px-3 py-1 bg-tertiary/10 text-tertiary dark:text-tertiary-dark text-xs font-bold rounded-full uppercase">有線</span>
+                </div>
+              </div>
+              <h3 class="text-xl font-bold mb-2 dark:text-surface-onDarkSurface">AUGLAMOUR F300</h3>
+              <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70">有線。音ゲー用途で使用</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="gadget-section">
-        <h3 class="gadget-category">📝 タブレット</h3>
-        <div class="works-grid">
-          <div class="work-card">
-            <div class="work-icon">📝</div>
-            <!-- タブレット1の名前を変える -->
-            <h3>Lenovo Tab Plus</h3>
-            <p>メインタブレット、ゲームや動画視聴で使用</p>
-            <div class="work-tags"><span>Android</span></div>
-          </div>
-          <div class="work-card">
-            <div class="work-icon">📝</div>
-            <!-- タブレット2の名前を変える -->
-            <h3>スマイルタブレット4</h3>
-            <p>置き時計として使用</p>
-            <div class="work-tags"><span>Android</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gadget-section">
-        <h3 class="gadget-category">⌚ スマートウォッチ</h3>
-        <div class="works-grid">
-          <div class="work-card">
-            <div class="work-icon">⌚</div>
-            <!-- スマートウォッチの名前を変える -->
-            <h3>Pixel Watch 1</h3>
-            <p>健康管理・通知確認、決済用途に使用。</p>
-            <div class="work-tags"><span>Wearable</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gadget-section">
-        <h3 class="gadget-category">💻 パソコン</h3>
-        <div class="works-grid pc-grid">
-
-          <!-- ===== PC 1 ===== -->
-          <div class="work-card">
-            <div class="work-icon">🖥️</div>
-            <h3>ROG STRIX Z370-F GAMING</h3>
-            <p>メインPC</p>
-            <table class="spec-table">
-              <tr>
-                <th>CPU</th>
-                <td>Intel Core i5-9400</td>
-              </tr>
-              <tr>
-                <th>GPU</th>
-                <td>AMD Radeon RX7600</td>
-              </tr>
-              <tr>
-                <th>RAM</th>
-                <td>32 GB DDR4</td>
-              </tr>
-              <tr>
-                <th>SSD</th>
-                <td>500 GB SATA</td>
-              </tr>
-              <tr>
-                <th>OS</th>
-                <td>Windows 11</td>
-              </tr>
-            </table>
-            <div class="work-tags"><span>Windows</span><span>自作</span></div>
-          </div>
-
-          <!-- ===== PC 2 ===== ここのスペックを変えてね -->
-          <div class="work-card">
-            <div class="work-icon">💻</div>
-            <h3>ThinkPad L13 Gen1</h3>
-            <p>メインノートPC</p>
-            <table class="spec-table">
-              <tr>
-                <th>CPU</th>
-                <td>intel Core i5-10210U</td>
-              </tr>
-              <tr>
-                <th>GPU</th>
-                <td>intel UHD Graphics</td>
-              </tr>
-              <tr>
-                <th>RAM</th>
-                <td>8 GB DDR4</td>
-              </tr>
-              <tr>
-                <th>SSD</th>
-                <td>512 GB NVMe</td>
-              </tr>
-              <tr>
-                <th>OS</th>
-                <td>Arch Linux</td>
-              </tr>
-            </table>
-            <div class="work-tags"><span>Linux</span></div>
-          </div>
-
-          <!-- ===== PC 3 ===== ここのスペックを変えてね -->
-          <div class="work-card">
-            <div class="work-icon">🖥️</div>
-            <h3>ASRock H87 Pro4</h3>
-            <p>サーバー</p>
-            <table class="spec-table">
-              <tr>
-                <th>CPU</th>
-                <td>intel Xeon E3-1280 v3</td>
-              </tr>
-              <tr>
-                <th>GPU</th>
-                <td>GT710</td>
-              </tr>
-              <tr>
-                <th>RAM</th>
-                <td>32 GB DDR3</td>
-              </tr>
-              <tr>
-                <th>SSD</th>
-                <td>240GB SSD</td>
-              </tr>
-              <tr>
-                <th>HDD</th>
-                <td>500GB HDD×2 1TB HDD</td>
-              </tr>
-              <tr>
-                <th>OS</th>
-                <td>Windows 11</td>
-              </tr>
-            </table>
-            <div class="work-tags"><span>Windows</span><span>自作</span><span>サーバー</span></div>
-          </div>
-
-        </div>
-      </div>
-
-
-      <div class="gadget-section">
-        <h3 class="gadget-category">🎧 イヤホン</h3>
-        <div class="works-grid">
-          <div class="work-card">
-            <div class="work-icon">🎧</div>
-            <!-- イヤホン1の名前を変える -->
-            <h3>SoundCore Liberty 4 Pro</h3>
-            <p>普段使い。ノイズキャンセリング対応。</p>
-            <div class="work-tags"><span>TWS</span><span>ANC</span></div>
-          </div>
-          <div class="work-card">
-            <div class="work-icon">🎧</div>
-            <!-- イヤホン2の名前を変える -->
-            <h3>AUGLAMOUR F300</h3>
-            <p>有線。音ゲー用途で使用</p>
-            <div class="work-tags"><span>有線</span><span>Hi-Fi</span></div>
-          </div>
-        </div>
-      </div>
-
     </section>
 
     <!-- ===== リンク集 ===== -->
-    <!-- href="" の中にURLを入れる -->
-    <section class="tab-panel" id="panel-links" role="tabpanel">
-      <div class="page-header">
-        <h2>リンク集</h2>
-        <p>お世話になってる人・おすすめサイトなど</p>
+    <section class="tab-panel hidden space-y-8" id="panel-links">
+      <div class="border-b border-outline/10 pb-4">
+        <h2 class="text-3xl font-bold dark:text-surface-onDarkSurface">リンク集</h2>
+        <p class="text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">お世話になってる人・おすすめサイトなど</p>
       </div>
 
-      <!-- ===== リンクを追加するときはこのブロックをコピーして増やしてね ===== -->
-      <div class="blogroll">
-
-        <!-- リンク例1 -->
-        <a href="https://spring-server.com/" class="blogroll-card" target="_blank" rel="noopener">
-          <div class="blogroll-main">
-            <span class="blogroll-name">はるさん</span>
-            <span class="blogroll-url">https://spring-server.com/</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="https://spring-server.com/" target="_blank" class="m3-card group flex flex-col justify-between hover:bg-surface-variant/30 dark:hover:bg-surface-variant/10 transition-colors">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xl font-bold text-primary dark:text-primary-dark group-hover:underline">はるさん</span>
+              <span class="text-xs bg-outline/10 px-2 py-1 rounded text-surface-onVariant/50 dark:text-surface-onDarkSurface/50">外部サイト</span>
+            </div>
+            <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70 mb-4">なんかすごい人</p>
           </div>
-          <p class="blogroll-desc">なんかすごい人</p>
+          <span class="text-xs font-mono opacity-40 truncate dark:text-surface-onDarkSurface">https://spring-server.com/</span>
         </a>
 
-        <!-- リンク例2 -->
-        <a href="https://きつね.jp/" class="blogroll-card" target="_blank" rel="noopener">
-          <div class="blogroll-main">
-            <span class="blogroll-name">さーふぉっくす</span>
-            <span class="blogroll-url">https://きつね.jp/</span>
+        <a href="https://きつね.jp/" target="_blank" class="m3-card group flex flex-col justify-between hover:bg-surface-variant/30 dark:hover:bg-surface-variant/10 transition-colors">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xl font-bold text-primary dark:text-primary-dark group-hover:underline">さーふぉっくす</span>
+              <span class="text-xs bg-outline/10 px-2 py-1 rounded text-surface-onVariant/50 dark:text-surface-onDarkSurface/50">外部サイト</span>
+            </div>
+            <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70 mb-4">便利なツールとか</p>
           </div>
-          <p class="blogroll-desc">便利なツールとか</p>
+          <span class="text-xs font-mono opacity-40 truncate dark:text-surface-onDarkSurface">https://きつね.jp/</span>
         </a>
 
-        <!-- リンク例3 -->
-        <a href="https://syokathu.cloudfree.jp/ssite/" class="blogroll-card" target="_blank" rel="noopener">
-          <div class="blogroll-main">
-            <span class="blogroll-name">Syokathu</span>
-            <span class="blogroll-url">https://syokathu.cloudfree.jp/ssite/</span>
+        <a href="https://syokathu.cloudfree.jp/ssite/" target="_blank" class="m3-card group flex flex-col justify-between hover:bg-surface-variant/30 dark:hover:bg-surface-variant/10 transition-colors">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xl font-bold text-primary dark:text-primary-dark group-hover:underline">Syokathu</span>
+              <span class="text-xs bg-outline/10 px-2 py-1 rounded text-surface-onVariant/50 dark:text-surface-onDarkSurface/50">外部サイト</span>
+            </div>
+            <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70 mb-4">親友</p>
           </div>
-          <p class="blogroll-desc">親友</p>
+          <span class="text-xs font-mono opacity-40 truncate dark:text-surface-onDarkSurface">https://syokathu.cloudfree.jp/ssite/</span>
         </a>
 
-        <!-- リンク例3 -->
-        <a href="http://ramuneserver.net/" class="blogroll-card" target="_blank" rel="noopener">
-          <div class="blogroll-main">
-            <span class="blogroll-name">ramune</span>
-            <span class="blogroll-url">http://ramuneserver.net/</span>
+        <a href="http://ramuneserver.net/" target="_blank" class="m3-card group flex flex-col justify-between hover:bg-surface-variant/30 dark:hover:bg-surface-variant/10 transition-colors">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xl font-bold text-primary dark:text-primary-dark group-hover:underline text-red-500">ramune</span>
+              <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">不安全 (HTTP)</span>
+            </div>
+            <p class="text-surface-onVariant/70 dark:text-surface-onDarkSurface/70 mb-4">こいつのサイト今の時代にhttpなんだけど</p>
           </div>
-          <p class="blogroll-desc">こいつのサイト今の時代にhttpなんだけど</p>
+          <span class="text-xs font-mono opacity-40 truncate dark:text-surface-onDarkSurface">http://ramuneserver.net/</span>
         </a>
 
+        <a href="https://n0rdb4hnh0f.com/" target="_blank" class="m3-card group flex flex-col justify-between hover:bg-surface-variant/30 dark:hover:bg-surface-variant/10 transition-colors">
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-xl font-bold text-primary dark:text-primary-dark group-hover:underline">n0rdb4hnh0f</span>
+              <span class="text-xs bg-outline/10 px-2 py-1 rounded text-surface-onVariant/50 dark:text-surface-onDarkSurface/50">外部サイト</span>
+            </div>
+          </div>
+          <span class="text-xs font-mono opacity-40 truncate dark:text-surface-onDarkSurface">https://n0rdb4hnh0f.com/</span>
+        </a>
       </div>
     </section>
 
   </main>
 
   <!-- 外部リンク注意モーダル -->
-  <div class="modal-overlay" id="extLinkModal" onclick="if(event.target===this)closeExtModal()">
-    <div class="modal-content">
-      <h3>外部サイトへの移動</h3>
-      <p>ここから先は外部サイト（<span id="extLinkUrl" class="highlight-url"></span>）へ移動します。<br />よろしいですか？</p>
-      <div class="modal-btns">
-        <button class="btn btn-secondary" onclick="closeExtModal()">キャンセル</button>
-        <a href="#" id="extLinkConfirmBtn" class="btn btn-primary" target="_blank" rel="noopener"
-          onclick="closeExtModal()">アクセスする</a>
+  <div id="extLinkModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeExtModal()"></div>
+    <div class="relative w-full max-w-md bg-surface dark:bg-[#2a2c2e] rounded-m3-xl p-6 shadow-2xl space-y-4 scale-95 transition-transform duration-300" id="extModalContent">
+      <h3 class="text-2xl font-bold dark:text-surface-onDarkSurface">外部サイトへ移動</h3>
+      <p class="text-surface-onVariant/80 dark:text-surface-onDarkSurface/80">
+        ここから先は外部サイト（<span id="extLinkUrl" class="text-primary dark:text-primary-dark font-bold break-all"></span>）へ移動します。よろしいですか？
+      </p>
+      <div class="flex justify-end gap-2 pt-4">
+        <button class="px-4 py-2 font-medium text-primary dark:text-primary-dark hover:bg-primary/5 rounded-full" onclick="closeExtModal()">キャンセル</button>
+        <a href="#" id="extLinkConfirmBtn" class="m3-btn-filled" target="_blank" rel="noopener" onclick="closeExtModal()">アクセスする</a>
       </div>
     </div>
   </div>
 
-  <footer class="site-footer">
-    <p>© 2026 meitetu. All rights reserved.</p>
+  <footer class="border-t border-outline/10 py-8 px-4 text-center">
+    <p class="text-sm text-surface-onVariant/60 dark:text-surface-onDarkSurface/60">© 2026 meitetu. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
